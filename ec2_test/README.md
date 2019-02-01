@@ -7,6 +7,7 @@
 3. create the Credentials File
    - ref) https://docs.aws.amazon.com/ko_kr/sdk-for-go/v1/developer-guide/configuring-sdk.html
    - $vi $HOME/.aws/credentials
+   
       [default]
       aws_access_key_id = <YOUR_ACCESS_KEY_ID>
       aws_secret_access_key = <YOUR_SECRET_ACCESS_KEY>
