@@ -12,4 +12,4 @@
       aws_secret_access_key = <YOUR_SECRET_ACCESS_KEY>
 
 4. download this test program
-   - $
+   - $ go get github.com/powerkimhub/go-test/ec_test
