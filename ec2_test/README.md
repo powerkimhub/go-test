@@ -13,3 +13,9 @@
 
 4. download this test program
    - $ go get github.com/powerkimhub/go-test/ec_test
+
+5. $ cd $GOPATH/src/github.com/powerkimhub/go-test/ec2_test
+
+6. $ go build
+
+7. $ ./ec2_test
