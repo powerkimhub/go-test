@@ -33,8 +33,8 @@ import (
 
 func main() {
     sess, err := session.NewSession(&aws.Config{
-        //Region: aws.String("us-west-2")},
-        Region: aws.String("ap-northeast-2")}, // seoul region. by powerkim
+        Region: aws.String("us-east-2")}, // ohio region
+        //Region: aws.String("ap-northeast-2")}, // seoul region. by powerkim
     )
 
     // Create EC2 service client
@@ -44,15 +44,15 @@ func main() {
     runResult, err := svc.RunInstances(&ec2.RunInstancesInput{
         // An Amazon Linux AMI ID for t2.micro instances in the us-west-2 region
         //ImageId:      aws.String("ami-e7527ed7"),
-        ImageId:      aws.String("ami-046b63c2d35ec7314"),  // CoreOS Container Linux stable 1967.4.0 (HVM) image in seoul. by powerkim
+        ImageId:      aws.String("ami-0a63f96e85105c6d3"),  
         InstanceType: aws.String("t2.micro"),
         MinCount:     aws.Int64(1),
         MaxCount:     aws.Int64(1),
-        KeyName:      aws.String("aws.powerkim.keypair"),  // add keypair. by powerkim
+        KeyName:      aws.String("powerkim-ohio"),  // add keypair. by powerkim
         SecurityGroupIds:      []*string{
-                        aws.String("sg-05a8e445fe5d48fb5"),
+                        aws.String("sg-09696bec4de47ea4d"),
                                         },                 // add security group. by powerkim
-        SubnetId: aws.String("subnet-b1c684fd"),           // add subnet. by powerkim
+        SubnetId: aws.String("subnet-33a70c7e"),           // add subnet. by powerkim
     })
 
     if err != nil {
@@ -68,7 +68,7 @@ func main() {
         Tags: []*ec2.Tag{
             {
                 Key:   aws.String("Name"),
-                Value: aws.String("MyFirstInstance"),
+                Value: aws.String("W2-VM1-powerkim"),
             },
         },
     })
