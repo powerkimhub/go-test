@@ -91,6 +91,57 @@
             }
         },
         "/vpc": {
+            "get": {
+                "description": "Retrieve a list of Virtual Private Clouds (VPCs) associated with a specific connection.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "List VPCs",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The name of the connection to list VPCs for",
+                        "name": "ConnectionName",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of VPCs",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/resources.VPCInfo"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid query parameter",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Create a new Virtual Private Cloud (VPC) with specified subnet configurations.",
                 "consumes": [
