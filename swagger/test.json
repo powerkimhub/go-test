@@ -215,67 +215,7 @@
             }
         },
         "restruntime.CreateVPCRequest": {
-            "type": "object",
-            "required": [
-                "ConnectionName"
-            ],
-            "properties": {
-                "ConnectionName": {
-                    "type": "string",
-                    "example": "aws-connection"
-                },
-                "IDTransformMode": {
-                    "description": "ON: transform CSP ID, OFF: no-transform CSP ID",
-                    "type": "string",
-                    "enum": [
-                        "ON",
-                        "OFF"
-                    ],
-                    "example": "ON"
-                },
-                "ReqInfo": {
-                    "type": "object",
-                    "properties": {
-                        "IPv4_CIDR": {
-                            "type": "string"
-                        },
-                        "Name": {
-                            "type": "string",
-                            "example": "vpc-01"
-                        },
-                        "SubnetInfoList": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "IPv4_CIDR": {
-                                        "type": "string"
-                                    },
-                                    "Name": {
-                                        "type": "string",
-                                        "example": "subnet-01"
-                                    },
-                                    "TagList": {
-                                        "type": "array",
-                                        "items": {
-                                            "$ref": "#/definitions/resource.KeyValue"
-                                        }
-                                    },
-                                    "Zone": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        },
-                        "TagList": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/resource.KeyValue"
-                            }
-                        }
-                    }
-                }
-            }
+            "type": "object"
         },
         "restruntime.ListVPCResponse": {
             "type": "object",
