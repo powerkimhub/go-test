@@ -218,7 +218,8 @@
             "type": "object",
             "properties": {
                 "ConnectionName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "aws-connection"
                 },
                 "IDTransformMode": {
                     "type": "string",
