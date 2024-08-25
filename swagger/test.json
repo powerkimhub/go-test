@@ -33,6 +33,7 @@
                     "[CCM] VPC management"
                 ],
                 "summary": "List VPCs",
+                "operationId": "list-vpc",
                 "parameters": [
                     {
                         "type": "string",
@@ -85,11 +86,11 @@
                 "parameters": [
                     {
                         "description": "Request body for creating a VPC",
-                        "name": "vpcCreateReq",
+                        "name": "CreateVPCRequest",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/restruntime.vpcCreateReq"
+                            "$ref": "#/definitions/restruntime.CreateVPCRequest"
                         }
                     }
                 ],
@@ -213,6 +214,58 @@
                 }
             }
         },
+        "restruntime.CreateVPCRequest": {
+            "type": "object",
+            "properties": {
+                "ConnectionName": {
+                    "type": "string"
+                },
+                "IDTransformMode": {
+                    "type": "string",
+                    "example": "ON | OFF, default is ON"
+                },
+                "ReqInfo": {
+                    "type": "object",
+                    "properties": {
+                        "IPv4_CIDR": {
+                            "type": "string"
+                        },
+                        "Name": {
+                            "type": "string"
+                        },
+                        "SubnetInfoList": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "IPv4_CIDR": {
+                                        "type": "string"
+                                    },
+                                    "Name": {
+                                        "type": "string"
+                                    },
+                                    "TagList": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/definitions/resource.KeyValue"
+                                        }
+                                    },
+                                    "Zone": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "TagList": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/resource.KeyValue"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "restruntime.ListVPCResponse": {
             "type": "object",
             "properties": {
@@ -230,62 +283,6 @@
                 "message": {
                     "type": "string",
                     "example": "Any message"
-                }
-            }
-        },
-        "restruntime.vpcCreateReq": {
-            "type": "object",
-            "properties": {
-                "connectionName": {
-                    "type": "string"
-                },
-                "idtransformMode": {
-                    "description": "ON | OFF, default is ON",
-                    "type": "string"
-                },
-                "reqInfo": {
-                    "type": "object",
-                    "required": [
-                        "Name"
-                    ],
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "example": "vm-01"
-                        },
-                        "ipv4_CIDR": {
-                            "type": "string"
-                        },
-                        "subnetInfoList": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "ipv4_CIDR": {
-                                        "type": "string"
-                                    },
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "tagList": {
-                                        "type": "array",
-                                        "items": {
-                                            "$ref": "#/definitions/resource.KeyValue"
-                                        }
-                                    },
-                                    "zone": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        },
-                        "tagList": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/resource.KeyValue"
-                            }
-                        }
-                    }
                 }
             }
         }
