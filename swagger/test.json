@@ -217,7 +217,8 @@
         "restruntime.CreateVPCRequest": {
             "type": "object",
             "required": [
-                "ConnectionName"
+                "ConnectionName",
+                "ReqInfo"
             ],
             "properties": {
                 "ConnectionName": {
@@ -232,7 +233,8 @@
                 "ReqInfo": {
                     "type": "object",
                     "required": [
-                        "Name"
+                        "Name",
+                        "SubnetInfoList"
                     ],
                     "properties": {
                         "IPv4_CIDR": {
