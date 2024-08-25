@@ -89,7 +89,7 @@
                     {
                         "type": "string",
                         "description": "The name of the connection to list VPCs for",
-                        "name": "connectionName",
+                        "name": "ConnectionName",
                         "in": "query",
                         "required": true
                     }
@@ -98,25 +98,25 @@
                     "200": {
                         "description": "List of VPCs",
                         "schema": {
-                            "$ref": "#/definitions/api-runtime_rest-runtime.ListVPCResponse"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.ListVPCResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request, possibly due to invalid query parameter",
                         "schema": {
-                            "$ref": "#/definitions/api-runtime_rest-runtime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "404": {
                         "description": "Resource Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api-runtime_rest-runtime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api-runtime_rest-runtime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     }
                 }
@@ -140,7 +140,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/api-runtime_rest-runtime.vpcCreateReq"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.vpcCreateReq"
                         }
                     }
                 ],
@@ -154,19 +154,19 @@
                     "400": {
                         "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
                         "schema": {
-                            "$ref": "#/definitions/api-runtime_rest-runtime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "404": {
                         "description": "Resource Not Found",
                         "schema": {
-                            "$ref": "#/definitions/api-runtime_rest-runtime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api-runtime_rest-runtime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     }
                 }
