@@ -36,8 +36,8 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "The name of the connection to list VPCs for",
-                        "name": "connectionName",
+                        "description": "The name of the Connection to list VPCs for",
+                        "name": "ConnectionName",
                         "in": "query",
                         "required": true
                     }
@@ -97,7 +97,7 @@
                     "200": {
                         "description": "Details of the created VPC",
                         "schema": {
-                            "$ref": "#/definitions/interfaces_resources.VPCInfo"
+                            "$ref": "#/definitions/resource.VPCInfo"
                         }
                     },
                     "400": {
@@ -123,7 +123,7 @@
         }
     },
     "definitions": {
-        "interfaces_resources.IID": {
+        "resource.IID": {
             "type": "object",
             "properties": {
                 "nameId": {
@@ -136,7 +136,7 @@
                 }
             }
         },
-        "interfaces_resources.KeyValue": {
+        "resource.KeyValue": {
             "type": "object",
             "properties": {
                 "key": {
@@ -147,14 +147,14 @@
                 }
             }
         },
-        "interfaces_resources.SubnetInfo": {
+        "resource.SubnetInfo": {
             "type": "object",
             "properties": {
                 "iid": {
                     "description": "{NameId, SystemId}",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/interfaces_resources.IID"
+                            "$ref": "#/definitions/resource.IID"
                         }
                     ]
                 },
@@ -164,13 +164,13 @@
                 "keyValueList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/resource.KeyValue"
                     }
                 },
                 "tagList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/resource.KeyValue"
                     }
                 },
                 "zone": {
@@ -179,14 +179,14 @@
                 }
             }
         },
-        "interfaces_resources.VPCInfo": {
+        "resource.VPCInfo": {
             "type": "object",
             "properties": {
                 "iid": {
                     "description": "{NameId, SystemId}",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/interfaces_resources.IID"
+                            "$ref": "#/definitions/resource.IID"
                         }
                     ]
                 },
@@ -196,19 +196,19 @@
                 "keyValueList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/resource.KeyValue"
                     }
                 },
                 "subnetInfoList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/interfaces_resources.SubnetInfo"
+                        "$ref": "#/definitions/resource.SubnetInfo"
                     }
                 },
                 "tagList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/resource.KeyValue"
                     }
                 }
             }
@@ -219,7 +219,7 @@
                 "vpc": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/interfaces_resources.VPCInfo"
+                        "$ref": "#/definitions/resource.VPCInfo"
                     }
                 }
             }
@@ -270,7 +270,7 @@
                                     "tagList": {
                                         "type": "array",
                                         "items": {
-                                            "$ref": "#/definitions/interfaces_resources.KeyValue"
+                                            "$ref": "#/definitions/resource.KeyValue"
                                         }
                                     },
                                     "zone": {
@@ -282,7 +282,7 @@
                         "tagList": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/interfaces_resources.KeyValue"
+                                "$ref": "#/definitions/resource.KeyValue"
                             }
                         }
                     }
