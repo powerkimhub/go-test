@@ -231,7 +231,8 @@
                             "type": "string"
                         },
                         "Name": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "vpc-01"
                         },
                         "SubnetInfoList": {
                             "type": "array",
@@ -242,7 +243,8 @@
                                         "type": "string"
                                     },
                                     "Name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "subnet-01"
                                     },
                                     "TagList": {
                                         "type": "array",
