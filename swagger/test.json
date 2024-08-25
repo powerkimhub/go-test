@@ -217,9 +217,7 @@
         "restruntime.CreateVPCRequest": {
             "type": "object",
             "required": [
-                "ConnectionName",
-                "IDTransformMode",
-                "ReqInfo"
+                "ConnectionName"
             ],
             "properties": {
                 "ConnectionName": {
@@ -229,16 +227,14 @@
                 "IDTransformMode": {
                     "description": "ON: transform CSP ID, OFF: no-transform CSP ID",
                     "type": "string",
+                    "enum": [
+                        "ON",
+                        "OFF"
+                    ],
                     "example": "ON"
                 },
                 "ReqInfo": {
                     "type": "object",
-                    "required": [
-                        "IPv4_CIDR",
-                        "Name",
-                        "SubnetInfoList",
-                        "TagList"
-                    ],
                     "properties": {
                         "IPv4_CIDR": {
                             "type": "string"
@@ -251,12 +247,6 @@
                             "type": "array",
                             "items": {
                                 "type": "object",
-                                "required": [
-                                    "IPv4_CIDR",
-                                    "Name",
-                                    "TagList",
-                                    "Zone"
-                                ],
                                 "properties": {
                                     "IPv4_CIDR": {
                                         "type": "string"
@@ -289,9 +279,6 @@
         },
         "restruntime.ListVPCResponse": {
             "type": "object",
-            "required": [
-                "vpc"
-            ],
             "properties": {
                 "vpc": {
                     "type": "array",
@@ -303,9 +290,6 @@
         },
         "restruntime.SimpleMsg": {
             "type": "object",
-            "required": [
-                "message"
-            ],
             "properties": {
                 "message": {
                     "type": "string",
