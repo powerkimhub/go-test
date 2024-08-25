@@ -215,7 +215,73 @@
             }
         },
         "restruntime.CreateVPCRequest": {
-            "type": "object"
+            "type": "object",
+            "required": [
+                "ConnectionName"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                },
+                "IDTransformMode": {
+                    "description": "ON: transform CSP ID, OFF: no-transform CSP ID",
+                    "type": "string",
+                    "example": "ON"
+                },
+                "ReqInfo": {
+                    "type": "object",
+                    "required": [
+                        "Name"
+                    ],
+                    "properties": {
+                        "IPv4_CIDR": {
+                            "type": "string",
+                            "example": "10.0.0.0/16"
+                        },
+                        "Name": {
+                            "type": "string",
+                            "example": "vpc-01"
+                        },
+                        "SubnetInfoList": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "required": [
+                                    "IPv4_CIDR",
+                                    "Name"
+                                ],
+                                "properties": {
+                                    "IPv4_CIDR": {
+                                        "type": "string",
+                                        "example": "10.0.1.0/24"
+                                    },
+                                    "Name": {
+                                        "type": "string",
+                                        "example": "subnet-01"
+                                    },
+                                    "TagList": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/definitions/resource.KeyValue"
+                                        }
+                                    },
+                                    "Zone": {
+                                        "type": "string",
+                                        "example": "us-east-1a"
+                                    }
+                                }
+                            }
+                        },
+                        "TagList": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/resource.KeyValue"
+                            }
+                        }
+                    }
+                }
+            }
         },
         "restruntime.ListVPCResponse": {
             "type": "object",
