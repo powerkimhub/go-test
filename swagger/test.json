@@ -216,6 +216,9 @@
         },
         "restruntime.CreateVPCRequest": {
             "type": "object",
+            "required": [
+                "ConnectionName"
+            ],
             "properties": {
                 "ConnectionName": {
                     "type": "string",
