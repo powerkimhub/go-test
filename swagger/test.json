@@ -22,7 +22,7 @@
     "paths": {
         "/keypair": {
             "post": {
-                "description": "Create SSH Key",
+                "description": "Generate a new KeyPair in the specified cloud connection.",
                 "consumes": [
                     "application/json"
                 ],
@@ -30,64 +30,43 @@
                     "application/json"
                 ],
                 "tags": [
-                    "[CCM] Access key management"
+                    "[CCM] KeyPair management"
                 ],
-                "summary": "Create SSH Key",
+                "summary": "Create a new KeyPair",
                 "parameters": [
                     {
-                        "description": "Request body to create key",
-                        "name": "keyPairCreateReq",
+                        "description": "Request body for creating a KeyPair",
+                        "name": "keyCreateReq",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/restruntime.JSONResult"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "ConnectionName": {
-                                            "type": "string"
-                                        },
-                                        "ReqInfo": {
-                                            "allOf": [
-                                                {
-                                                    "$ref": "#/definitions/restruntime.JSONResult"
-                                                },
-                                                {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "Name": {
-                                                            "type": "string"
-                                                        }
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/api-runtime_rest-runtime.KeyCreateReq"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Details of the created KeyPair",
                         "schema": {
-                            "$ref": "#/definitions/resources.KeyPairInfo"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyPairInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "Resource Not Found",
                         "schema": {
-                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                            "$ref": "#/definitions/api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                            "$ref": "#/definitions/api-runtime_rest-runtime.SimpleMsg"
                         }
                     }
                 }
@@ -110,7 +89,7 @@
                     {
                         "type": "string",
                         "description": "The name of the connection to list VPCs for",
-                        "name": "ConnectionName",
+                        "name": "connectionName",
                         "in": "query",
                         "required": true
                     }
@@ -119,28 +98,25 @@
                     "200": {
                         "description": "List of VPCs",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/resources.VPCInfo"
-                            }
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.ListVPCResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request, possibly due to invalid query parameter",
                         "schema": {
-                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "404": {
                         "description": "Resource Not Found",
                         "schema": {
-                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     }
                 }
@@ -159,12 +135,12 @@
                 "summary": "Create VPC",
                 "parameters": [
                     {
-                        "description": "Request body to create VPC",
+                        "description": "Request body for creating a VPC",
                         "name": "vpcCreateReq",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/restruntime.vpcCreateReq"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.vpcCreateReq"
                         }
                     }
                 ],
@@ -172,25 +148,25 @@
                     "200": {
                         "description": "Details of the created VPC",
                         "schema": {
-                            "$ref": "#/definitions/resources.VPCInfo"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.VPCInfo"
                         }
                     },
                     "400": {
                         "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
                         "schema": {
-                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "404": {
                         "description": "Resource Not Found",
                         "schema": {
-                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg"
                         }
                     }
                 }
@@ -198,18 +174,211 @@
         }
     },
     "definitions": {
-        "cloud-control-manager_cloud-driver_interfaces_resources.KeyValue": {
+        "api-runtime_rest-runtime.KeyCreateReq": {
             "type": "object",
             "properties": {
-                "key": {
+                "connectionName": {
                     "type": "string"
                 },
-                "value": {
+                "idtransformMode": {
+                    "description": "ON | OFF, default is ON",
                     "type": "string"
+                },
+                "reqInfo": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "tagList": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                            }
+                        }
+                    }
                 }
             }
         },
-        "resources.IID": {
+        "api-runtime_rest-runtime.ListVPCResponse": {
+            "type": "object",
+            "properties": {
+                "vpc": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.VPCInfo"
+                    }
+                }
+            }
+        },
+        "api-runtime_rest-runtime.SimpleMsg": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Any message"
+                }
+            }
+        },
+        "api-runtime_rest-runtime.vpcCreateReq": {
+            "type": "object",
+            "properties": {
+                "connectionName": {
+                    "type": "string"
+                },
+                "idtransformMode": {
+                    "description": "ON | OFF, default is ON",
+                    "type": "string"
+                },
+                "reqInfo": {
+                    "type": "object",
+                    "required": [
+                        "Name"
+                    ],
+                    "properties": {
+                        "Name": {
+                            "type": "string",
+                            "example": "vm-01"
+                        },
+                        "ipv4_CIDR": {
+                            "type": "string"
+                        },
+                        "subnetInfoList": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "ipv4_CIDR": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "tagList": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                                        }
+                                    },
+                                    "zone": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "tagList": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.KeyCreateReq": {
+            "type": "object",
+            "properties": {
+                "connectionName": {
+                    "type": "string"
+                },
+                "idtransformMode": {
+                    "description": "ON | OFF, default is ON",
+                    "type": "string"
+                },
+                "reqInfo": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "tagList": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.ListVPCResponse": {
+            "type": "object",
+            "properties": {
+                "vpc": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.VPCInfo"
+                    }
+                }
+            }
+        },
+        "github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.SimpleMsg": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Any message"
+                }
+            }
+        },
+        "github_com_cloud-barista_cb-spider_api-runtime_rest-runtime.vpcCreateReq": {
+            "type": "object",
+            "properties": {
+                "connectionName": {
+                    "type": "string"
+                },
+                "idtransformMode": {
+                    "description": "ON | OFF, default is ON",
+                    "type": "string"
+                },
+                "reqInfo": {
+                    "type": "object",
+                    "required": [
+                        "Name"
+                    ],
+                    "properties": {
+                        "Name": {
+                            "type": "string",
+                            "example": "vm-01"
+                        },
+                        "ipv4_CIDR": {
+                            "type": "string"
+                        },
+                        "subnetInfoList": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "ipv4_CIDR": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "tagList": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                                        }
+                                    },
+                                    "zone": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "tagList": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.IID": {
             "type": "object",
             "properties": {
                 "nameId": {
@@ -222,7 +391,7 @@
                 }
             }
         },
-        "resources.KeyPairInfo": {
+        "github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyPairInfo": {
             "type": "object",
             "properties": {
                 "fingerprint": {
@@ -232,14 +401,14 @@
                     "description": "{NameId, SystemId}",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/resources.IID"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.IID"
                         }
                     ]
                 },
                 "keyValueList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
                     }
                 },
                 "privateKey": {
@@ -251,7 +420,7 @@
                 "tagList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
                     }
                 },
                 "vmuserID": {
@@ -259,14 +428,25 @@
                 }
             }
         },
-        "resources.SubnetInfo": {
+        "github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.SubnetInfo": {
             "type": "object",
             "properties": {
                 "iid": {
                     "description": "{NameId, SystemId}",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/resources.IID"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.IID"
                         }
                     ]
                 },
@@ -276,13 +456,13 @@
                 "keyValueList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
                     }
                 },
                 "tagList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
                     }
                 },
                 "zone": {
@@ -291,14 +471,14 @@
                 }
             }
         },
-        "resources.VPCInfo": {
+        "github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.VPCInfo": {
             "type": "object",
             "properties": {
                 "iid": {
                     "description": "{NameId, SystemId}",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/resources.IID"
+                            "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.IID"
                         }
                     ]
                 },
@@ -308,37 +488,22 @@
                 "keyValueList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
                     }
                 },
                 "subnetInfoList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/resources.SubnetInfo"
+                        "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.SubnetInfo"
                     }
                 },
                 "tagList": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
+                        "$ref": "#/definitions/github_com_cloud-barista_cb-spider_cloud-control-manager_cloud-driver_interfaces_resources.KeyValue"
                     }
                 }
             }
-        },
-        "restruntime.JSONResult": {
-            "type": "object"
-        },
-        "restruntime.SimpleMsg": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string",
-                    "example": "Any message"
-                }
-            }
-        },
-        "restruntime.vpcCreateReq": {
-            "type": "object"
         }
     },
     "securityDefinitions": {
