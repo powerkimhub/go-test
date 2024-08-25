@@ -236,8 +236,7 @@
                     ],
                     "properties": {
                         "IPv4_CIDR": {
-                            "type": "string",
-                            "example": "10.0.0.0/16"
+                            "type": "string"
                         },
                         "Name": {
                             "type": "string",
@@ -253,8 +252,7 @@
                                 ],
                                 "properties": {
                                     "IPv4_CIDR": {
-                                        "type": "string",
-                                        "example": "10.0.1.0/24"
+                                        "type": "string"
                                     },
                                     "Name": {
                                         "type": "string",
@@ -267,8 +265,7 @@
                                         }
                                     },
                                     "Zone": {
-                                        "type": "string",
-                                        "example": "us-east-1a"
+                                        "type": "string"
                                     }
                                 }
                             }
