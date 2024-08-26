@@ -20,6 +20,436 @@
     "host": "localhost:1024",
     "basePath": "/spider",
     "paths": {
+        "/csp-subnet/{VPCName}/{Id}": {
+            "delete": {
+                "description": "Remove an existing CSP Subnet from a VPC.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Remove CSP Subnet",
+                "operationId": "remove-csp-subnet",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The name of the VPC",
+                        "name": "VPCName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "The CSP Subnet ID to remove",
+                        "name": "Id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Request body for removing a CSP Subnet",
+                        "name": "removeCSPSubnetReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.removeCSPSubnetReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result of the remove operation",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.BooleanInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/csp-vpc/{Id}": {
+            "delete": {
+                "description": "Delete a specified CSP Virtual Private Cloud (VPC).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Delete CSP VPC",
+                "operationId": "delete-csp-vpc",
+                "parameters": [
+                    {
+                        "description": "Request body for deleting a CSP VPC",
+                        "name": "deleteCSPVPCReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.deleteCSPVPCReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "The CSP VPC ID to delete",
+                        "name": "Id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result of the delete operation",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.BooleanInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/subnet/count/all": {
+            "get": {
+                "description": "Get the total number of Subnets across all connections.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Count All Subnets",
+                "operationId": "count-all-subnets",
+                "responses": {
+                    "200": {
+                        "description": "Total count of Subnets",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.countAllSubnetsRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/subnet/count/{ConnectionName}": {
+            "get": {
+                "description": "Get the total number of Subnets for a specific connection.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Count Subnets by Connection",
+                "operationId": "count-subnets-by-connection",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The name of the Connection",
+                        "name": "ConnectionName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Total count of Subnets for the connection",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.countSubnetsByConnectionRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/subnet/register": {
+            "post": {
+                "description": "Register a new Subnet within a specified VPC.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Register Subnet",
+                "operationId": "register-subnet",
+                "parameters": [
+                    {
+                        "description": "Request body for registering a Subnet",
+                        "name": "subnetRegisterReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.subnetRegisterReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the registered Subnet",
+                        "schema": {
+                            "$ref": "#/definitions/resource.SubnetInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/subnet/unregister/{Name}": {
+            "delete": {
+                "description": "Unregister a Subnet from a specified VPC.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Unregister Subnet",
+                "operationId": "unregister-subnet",
+                "parameters": [
+                    {
+                        "description": "Request body for unregistering a Subnet",
+                        "name": "subnetUnregisterReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.subnetUnregisterReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "The name of the Subnet to unregister",
+                        "name": "Name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result of the unregister operation",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.BooleanInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/subnet/{VPCName}": {
+            "post": {
+                "description": "Add a new Subnet to an existing VPC.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Add Subnet",
+                "operationId": "add-subnet",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The name of the VPC to add the Subnet to",
+                        "name": "VPCName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Request body for adding a Subnet",
+                        "name": "addSubnetReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.addSubnetReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the added Subnet",
+                        "schema": {
+                            "$ref": "#/definitions/resource.SubnetInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/subnet/{VPCName}/{SubnetName}": {
+            "delete": {
+                "description": "Remove an existing Subnet from a VPC.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Remove Subnet",
+                "operationId": "remove-subnet",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The name of the VPC",
+                        "name": "VPCName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "The name of the Subnet to remove",
+                        "name": "SubnetName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Request body for removing a Subnet",
+                        "name": "removeSubnetReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.removeSubnetReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result of the remove operation",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.BooleanInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
         "/vpc": {
             "get": {
                 "description": "Retrieve a list of Virtual Private Clouds (VPCs) associated with a specific connection.",
@@ -99,6 +529,412 @@
                         "description": "Details of the created VPC",
                         "schema": {
                             "$ref": "#/definitions/resource.VPCInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/vpc/all": {
+            "get": {
+                "description": "Retrieve a list of all Virtual Private Clouds (VPCs) across all connections.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "List All VPCs",
+                "operationId": "list-all-vpc",
+                "parameters": [
+                    {
+                        "description": "Request body for listing all VPCs",
+                        "name": "listAllVPCReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.listAllVPCReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of all VPCs",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.listAllVPCRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/vpc/count/all": {
+            "get": {
+                "description": "Get the total number of VPCs across all connections.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Count All VPCs",
+                "operationId": "count-all-vpcs",
+                "responses": {
+                    "200": {
+                        "description": "Total count of VPCs",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.countAllVPCsRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/vpc/count/{ConnectionName}": {
+            "get": {
+                "description": "Get the total number of VPCs for a specific connection.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Count VPCs by Connection",
+                "operationId": "count-vpcs-by-connection",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The name of the Connection",
+                        "name": "ConnectionName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Total count of VPCs for the connection",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.countVPCsByConnectionRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/vpc/register": {
+            "post": {
+                "description": "Register a new Virtual Private Cloud (VPC) with the specified name and CSP ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Register VPC",
+                "operationId": "register-vpc",
+                "parameters": [
+                    {
+                        "description": "Request body for registering a VPC",
+                        "name": "vpcRegisterReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.vpcRegisterReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the registered VPC",
+                        "schema": {
+                            "$ref": "#/definitions/resource.VPCInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/vpc/sg-owner": {
+            "post": {
+                "description": "Retrieve the owner VPC of a specified Security Group.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Get Security Group Owner VPC",
+                "operationId": "get-sg-owner-vpc",
+                "parameters": [
+                    {
+                        "description": "Request body for getting Security Group Owner VPC",
+                        "name": "getSGOwnerVPCReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.getSGOwnerVPCReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the owner VPC",
+                        "schema": {
+                            "$ref": "#/definitions/resource.VPCInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/vpc/unregister/{Name}": {
+            "delete": {
+                "description": "Unregister a VPC with the specified name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Unregister VPC",
+                "operationId": "unregister-vpc",
+                "parameters": [
+                    {
+                        "description": "Request body for unregistering a VPC",
+                        "name": "unregisterVPCReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.unregisterVPCReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "The name of the VPC to unregister",
+                        "name": "Name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result of the unregister operation",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.BooleanInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            }
+        },
+        "/vpc/{Name}": {
+            "get": {
+                "description": "Retrieve details of a specific Virtual Private Cloud (VPC).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Get VPC",
+                "operationId": "get-vpc",
+                "parameters": [
+                    {
+                        "description": "Request body for getting a VPC",
+                        "name": "getVPCReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.getVPCReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "The name of the VPC to retrieve",
+                        "name": "Name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the VPC",
+                        "schema": {
+                            "$ref": "#/definitions/resource.VPCInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request, possibly due to invalid JSON structure or missing fields",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.SimpleMsg"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a specified Virtual Private Cloud (VPC).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "[CCM] VPC management"
+                ],
+                "summary": "Delete VPC",
+                "operationId": "delete-vpc",
+                "parameters": [
+                    {
+                        "description": "Request body for deleting a VPC",
+                        "name": "deleteVPCReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.deleteVPCReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "The name of the VPC to delete",
+                        "name": "Name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Force delete the VPC",
+                        "name": "force",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result of the delete operation",
+                        "schema": {
+                            "$ref": "#/definitions/restruntime.BooleanInfo"
                         }
                     },
                     "400": {
@@ -214,6 +1050,15 @@
                 }
             }
         },
+        "restruntime.BooleanInfo": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "description": "true or false",
+                    "type": "string"
+                }
+            }
+        },
         "restruntime.CreateVPCRequest": {
             "type": "object",
             "required": [
@@ -299,6 +1144,301 @@
                 "message": {
                     "type": "string",
                     "example": "Any message"
+                }
+            }
+        },
+        "restruntime.addSubnetReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName",
+                "ReqInfo"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                },
+                "IDTransformMode": {
+                    "description": "ON: transform CSP ID, OFF: no-transform CSP ID",
+                    "type": "string",
+                    "example": "ON"
+                },
+                "ReqInfo": {
+                    "type": "object",
+                    "required": [
+                        "IPv4_CIDR",
+                        "Name"
+                    ],
+                    "properties": {
+                        "IPv4_CIDR": {
+                            "type": "string",
+                            "example": "192.168.1.0/24"
+                        },
+                        "Name": {
+                            "type": "string",
+                            "example": "subnet-01"
+                        },
+                        "TagList": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/resource.KeyValue"
+                            }
+                        },
+                        "Zone": {
+                            "type": "string",
+                            "example": "us-east-1a"
+                        }
+                    }
+                }
+            }
+        },
+        "restruntime.countAllSubnetsRes": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "example": 8
+                }
+            }
+        },
+        "restruntime.countAllVPCsRes": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "example": 5
+                }
+            }
+        },
+        "restruntime.countSubnetsByConnectionRes": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "example": 3
+                }
+            }
+        },
+        "restruntime.countVPCsByConnectionRes": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "example": 2
+                }
+            }
+        },
+        "restruntime.deleteCSPVPCReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                }
+            }
+        },
+        "restruntime.deleteVPCReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                }
+            }
+        },
+        "restruntime.getSGOwnerVPCReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName",
+                "ReqInfo"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                },
+                "ReqInfo": {
+                    "type": "object",
+                    "required": [
+                        "CSPId"
+                    ],
+                    "properties": {
+                        "CSPId": {
+                            "type": "string",
+                            "example": "csp-sg-1234"
+                        }
+                    }
+                }
+            }
+        },
+        "restruntime.getVPCReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                }
+            }
+        },
+        "restruntime.listAllVPCReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                }
+            }
+        },
+        "restruntime.listAllVPCRes": {
+            "type": "object",
+            "properties": {
+                "AllVPCs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/resource.VPCInfo"
+                    }
+                }
+            }
+        },
+        "restruntime.removeCSPSubnetReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                }
+            }
+        },
+        "restruntime.removeSubnetReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                }
+            }
+        },
+        "restruntime.subnetRegisterReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName",
+                "ReqInfo"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                },
+                "ReqInfo": {
+                    "type": "object",
+                    "required": [
+                        "CSPId",
+                        "Name",
+                        "VPCName"
+                    ],
+                    "properties": {
+                        "CSPId": {
+                            "type": "string",
+                            "example": "csp-subnet-1234"
+                        },
+                        "Name": {
+                            "type": "string",
+                            "example": "subnet-01"
+                        },
+                        "VPCName": {
+                            "type": "string",
+                            "example": "vpc-01"
+                        },
+                        "Zone": {
+                            "type": "string",
+                            "example": "us-east-1a"
+                        }
+                    }
+                }
+            }
+        },
+        "restruntime.subnetUnregisterReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName",
+                "ReqInfo"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                },
+                "ReqInfo": {
+                    "type": "object",
+                    "required": [
+                        "VPCName"
+                    ],
+                    "properties": {
+                        "VPCName": {
+                            "type": "string",
+                            "example": "vpc-01"
+                        }
+                    }
+                }
+            }
+        },
+        "restruntime.unregisterVPCReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                }
+            }
+        },
+        "restruntime.vpcRegisterReq": {
+            "type": "object",
+            "required": [
+                "ConnectionName",
+                "ReqInfo"
+            ],
+            "properties": {
+                "ConnectionName": {
+                    "type": "string",
+                    "example": "aws-connection"
+                },
+                "ReqInfo": {
+                    "type": "object",
+                    "required": [
+                        "CSPId",
+                        "Name"
+                    ],
+                    "properties": {
+                        "CSPId": {
+                            "type": "string",
+                            "example": "csp-vpc-1234"
+                        },
+                        "Name": {
+                            "type": "string",
+                            "example": "vpc-01"
+                        }
+                    }
                 }
             }
         }
