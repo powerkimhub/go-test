@@ -14,8 +14,8 @@ import (
 // Retrieve the MX records for miek.nl.
 //func ExampleMX() {
 func main() {
-	//config, _ := dns.ClientConfigFromFile("/etc/resolv.conf")
-	config, _ := dns.ClientConfigFromFile("./resolv.conf")
+	config, _ := dns.ClientConfigFromFile("/etc/resolv.conf")
+	//config, _ := dns.ClientConfigFromFile("./resolv.conf")
 	c := new(dns.Client)
 	m := new(dns.Msg)
 	m.SetQuestion("miek.nl.", dns.TypeMX)
